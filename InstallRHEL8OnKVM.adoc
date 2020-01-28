@@ -1,44 +1,50 @@
-# Install RHEL 8 Virtual Machine
+= Install RHEL 8 Virtual Machine
 
-## Host
+== Host
 
-### Install KVM
+=== Install KVM
 
-```bash
+[source,bash]
+----
 sudo yum update
 sudo yum install @virt
 sudo dnf -y install virt-top libguestfs-tools
 sudo systemctl enable --now libvirtd
 sudo yum -y install virt-manager
-```
+----
 
-### Install VM
+=== Install VM
 
-```bash
+[source,bash]
+----
 virt-manager
-sudo nmcli conn show ---> Check that the bridge has been created
-```
+sudo nmcli conn show // <1>
+----
+<1> Check that the bridge has been created
 
 Install the VM
 
-### Change root password of the guest image
+=== Change root password of the guest image
 
-```bash
+[source,bash]
+----
 sudo virt-customize -a <name_iso> --root-password <password>: --uninstall cloud-init
-```
+----
 
-## Guest
+== Guest
 
-### Register the VM
+=== Register the VM
 
-```bash
+[source,bash]
+----
 subscription-manager register --username=<USER_NAME> --password=<PASSWORD> --auto-attach
-```
+----
 
-### Activate GNOME
+=== Activate GNOME
 
-```bash
+[source,bash]
+----
 dnf groupinstall workstation
 systemctl set-default graphical.target
 systemctl isolate graphical
-```
+----
