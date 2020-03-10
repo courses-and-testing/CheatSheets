@@ -64,3 +64,32 @@ Apagar todos los triggers
 ----
 oc set triggers dc openshift-tasks --manual
 ----
+
+== RBAC
+
+=== Troubleshooting
+
+Discover which users can perform action on resource:
+
+[source,bash]
+----
+oc policy who-can VERB KIND
+----
+
+Impersonate other users
+
+[source,bash]
+----
+oc --as=USER
+
+oc --as=andrew can-i list pods -n openshift-authentication
+
+# As a group
+oc --as=: --as-group=GROUP
+
+oc get pods -n example-app-db \
+    --as=: \
+    --as-group=example-app-dev
+----
+
+
